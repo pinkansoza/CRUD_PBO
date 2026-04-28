@@ -109,6 +109,7 @@ public class FormMahasiswa extends javax.swing.JFrame {
         buttonInsert.addActionListener(this::buttonInsertActionPerformed);
 
         buttonUpdate.setText("Ubah");
+        buttonUpdate.addActionListener(this::buttonUpdateActionPerformed);
 
         buttonDelete.setText("Hapus");
 
@@ -255,6 +256,13 @@ public class FormMahasiswa extends javax.swing.JFrame {
         // TODO add your handling code here:
         ctsMhs.reset();
     }//GEN-LAST:event_buttonResetActionPerformed
+
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+        // TODO add your handling code here:
+        ctsMhs.update();
+        ctsMhs.isiTable();
+        ctsMhs.reset();
+    }//GEN-LAST:event_buttonUpdateActionPerformed
 
     /**
      * @param args the command line arguments

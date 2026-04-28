@@ -24,6 +24,8 @@ public class DAOMahasiswa implements IDAOMahasiswa {
     //SQL Query
     String strRead = "select * from tblMahasiswa;";
     String strInsert = "insert into tblMahasiswa(id,nim,nama,jk,alamat) values (?,?,?,?,?);";
+    String strUpdate = "update tblMahasiswa set nim=?, nama=?, jk=?, alamat=? where id=? ";
+    
 
     public DAOMahasiswa() throws SQLException {
         con = KoneksiDB.getConnection();
@@ -82,4 +84,36 @@ public class DAOMahasiswa implements IDAOMahasiswa {
         }
     }
 }
+
+    @Override
+    public void update(Mahasiswa b) {
+        PreparedStatement statement = null;
+    try {
+        statement = con.prepareStatement(strUpdate, java.sql.Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, b.getNim());
+        statement.setString(2, b.getNama());
+        statement.setString(3, b.getJk());
+        statement.setString(4, b.getAlamat());
+        statement.setInt(5, b.getId());
+        statement.executeUpdate();
+        
+        ResultSet rs = statement.getGeneratedKeys();
+        while (rs.next()) {
+            b.setId(rs.getInt(1));
+        }
+        
+        System.out.println("Data Berhasil Disimpan");
+
+    } catch (SQLException ex) {
+        System.out.println("Gagal Update" + ex.getMessage());
+    } finally {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                System.out.println("Gagal menutup statement: " + e.getMessage());
+            }
+        }
+    }
+    }
 }

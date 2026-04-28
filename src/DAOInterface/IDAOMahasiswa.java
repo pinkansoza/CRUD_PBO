@@ -16,4 +16,6 @@ public interface IDAOMahasiswa {
     public List<Mahasiswa> getAll();
     //INSERT DATA
     public void insert(Mahasiswa b);
+    //UPDATE DATA
+    public void update(Mahasiswa b);
 }

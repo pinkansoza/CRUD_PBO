@@ -10,6 +10,11 @@ package Model;
  */
 public class Mahasiswa {
 
+    private Integer id;
+    private String nim;
+    private String nama;
+    private String jk;
+    private String alamat;
     
     public Integer getId() {
         return id;
@@ -59,11 +64,5 @@ public class Mahasiswa {
     public void setAlamat(String alamat) {
         this.alamat = alamat;
     }
-    private Integer id;
-    private String nim;
-    private String nama;
-    private String jk;
-    private String alamat;
-
     
 }

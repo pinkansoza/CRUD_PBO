@@ -84,4 +84,18 @@ public class ControllerMahasiswa {
         frmMahasiswa.gettxtAlamat().setText(lstMhs.get(row).getAlamat());
         
     }
+    
+    public void update(){
+        if (!cekValidasi()) {
+        return; 
+        }
+        Mahasiswa b = new Mahasiswa();
+        b.setId(Integer.valueOf(frmMahasiswa.gettxtID().getText()));
+        b.setNim(frmMahasiswa.gettxtNim().getText());
+        b.setNama(frmMahasiswa.gettxtNama().getText());
+        b.setJk(frmMahasiswa.getJKel().getSelectedItem().toString());
+        b.setAlamat(frmMahasiswa.gettxtAlamat().getText());
+        iMahasiswa.update(b);
+        JOptionPane.showMessageDialog(null, "update berhasil");
+    }
 }
