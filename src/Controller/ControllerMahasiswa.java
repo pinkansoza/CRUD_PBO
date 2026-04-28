@@ -33,28 +33,6 @@ public class ControllerMahasiswa {
         frmMahasiswa.getTabelData().setModel(tabelMhs);
     }
     
-    public void insert(){
-        if (!cekValidasi()) {
-        return; 
-        }
-        Mahasiswa b = new Mahasiswa();
-        b.setId(Integer.valueOf(frmMahasiswa.gettxtID().getText()));
-        b.setNim(frmMahasiswa.gettxtNim().getText());
-        b.setNama(frmMahasiswa.gettxtNama().getText());
-        b.setJk(frmMahasiswa.getJKel().getSelectedItem().toString());
-        b.setAlamat(frmMahasiswa.gettxtAlamat().getText());
-        iMahasiswa.insert(b);
-        JOptionPane.showMessageDialog(null, "input berhasil");
-    }
-    
-    public void reset(){
-        frmMahasiswa.gettxtID().setText("");
-        frmMahasiswa.gettxtNim().setText("");
-        frmMahasiswa.gettxtNama().setText("");
-        frmMahasiswa.getJKel().setSelectedItem("");
-        frmMahasiswa.gettxtAlamat().setText("");
-    }
-
     public boolean cekValidasi() {
         // Ambil data dari View (Frame)
         String nim = frmMahasiswa.gettxtNim().getText();
@@ -71,5 +49,39 @@ public class ControllerMahasiswa {
             return false; // Validasi gagal
         }
         return true; // Validasi berhasil
+    }
+    
+    public void insert(){
+        if (!cekValidasi()) {
+        return; 
+        }
+        Mahasiswa b = new Mahasiswa();
+        b.setId(Integer.valueOf(frmMahasiswa.gettxtID().getText()));
+        b.setNim(frmMahasiswa.gettxtNim().getText());
+        b.setNama(frmMahasiswa.gettxtNama().getText());
+        b.setJk(frmMahasiswa.getJKel().getSelectedItem().toString());
+        b.setAlamat(frmMahasiswa.gettxtAlamat().getText());
+        iMahasiswa.insert(b);
+        JOptionPane.showMessageDialog(null, "input berhasil");
+    }
+    
+    public void reset(){
+        if(!frmMahasiswa.gettxtID().isEnabled())
+            frmMahasiswa.gettxtID().setEnabled(true);
+        frmMahasiswa.gettxtID().setText("");
+        frmMahasiswa.gettxtNim().setText("");
+        frmMahasiswa.gettxtNama().setText("");
+        frmMahasiswa.getJKel().setSelectedItem("");
+        frmMahasiswa.gettxtAlamat().setText("");
+    }
+    
+    public void isiField(int row){
+        frmMahasiswa.gettxtID().setEnabled(false);
+        frmMahasiswa.gettxtID().setText(lstMhs.get(row).getId().toString());
+        frmMahasiswa.gettxtNim().setText(lstMhs.get(row).getNim());
+        frmMahasiswa.gettxtNama().setText(lstMhs.get(row).getNama());
+        frmMahasiswa.getJKel().setSelectedItem(lstMhs.get(row).getJk());
+        frmMahasiswa.gettxtAlamat().setText(lstMhs.get(row).getAlamat());
+        
     }
 }
