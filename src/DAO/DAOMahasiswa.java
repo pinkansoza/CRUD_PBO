@@ -22,10 +22,11 @@ public class DAOMahasiswa implements IDAOMahasiswa {
 
     Connection con;
     //SQL Query
-    String strRead = "select * from tblMahasiswa;";
+    String strRead = "select * from tblMahasiswa order by id desc;";
     String strInsert = "insert into tblMahasiswa(id,nim,nama,jk,alamat) values (?,?,?,?,?);";
     String strUpdate = "update tblMahasiswa set nim=?, nama=?, jk=?, alamat=? where id=? ";
     String strDelete = "delete from tblMahasiswa where id=?";
+    String strSearch = "select * from tblMahasiswa where nama like ?;";
     
 
     public DAOMahasiswa() throws SQLException {
@@ -55,36 +56,35 @@ public class DAOMahasiswa implements IDAOMahasiswa {
     }
 
     @Override
-    public void insert(Mahasiswa b) {
-    PreparedStatement statement = null;
-    try {
-        statement = con.prepareStatement(strInsert, java.sql.Statement.RETURN_GENERATED_KEYS);
-        statement.setInt(1, b.getId());
-        statement.setString(2, b.getNim());
-        statement.setString(3, b.getNama());
-        statement.setString(4, b.getJk());
-        statement.setString(5, b.getAlamat());
-        statement.executeUpdate();
-        
-        ResultSet rs = statement.getGeneratedKeys();
-        while (rs.next()) {
-            b.setId(rs.getInt(1));
-        }
-        
-        System.out.println("Data Berhasil Disimpan");
+    public boolean insert(Mahasiswa b) {
+        PreparedStatement statement = null;
+        try {
+            statement = con.prepareStatement(strInsert);
+            statement.setInt(1, b.getId());
+            statement.setString(2, b.getNim());
+            statement.setString(3, b.getNama());
+            statement.setString(4, b.getJk());
+            statement.setString(5, b.getAlamat());
 
-    } catch (SQLException ex) {
-        System.out.println("Gagal Input: " + ex.getMessage());
-    } finally {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                System.out.println("Gagal menutup statement: " + e.getMessage());
+            int rowsAffected = statement.executeUpdate();
+
+            System.out.println("Data Berhasil Disimpan");
+            return rowsAffected > 0; // Mengembalikan true jika ada data masuk
+
+        } catch (SQLException ex) {
+            // Kita tetap print di console untuk kita baca sendiri kalau ada error
+            System.out.println("Gagal Input (DAO): " + ex.getMessage());
+            return false; // Mengembalikan false agar Controller tahu ada masalah
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    System.out.println("Gagal menutup statement: " + e.getMessage());
+                }
             }
         }
     }
-}
 
     @Override
     public void update(Mahasiswa b) {
@@ -138,5 +138,28 @@ public class DAOMahasiswa implements IDAOMahasiswa {
         }
     }
     
+    }
+
+    @Override
+    public List<Mahasiswa> getAllByName(String nama) {
+        List<Mahasiswa> lstMhs = new ArrayList<>();
+        try {
+            PreparedStatement st = con.prepareStatement(strSearch);
+            st.setString(1, "%"+nama+"%");
+            ResultSet rs = st.executeQuery();
+            
+            while(rs.next()){
+                Mahasiswa mhs = new Mahasiswa();
+                mhs.setId(rs.getInt("id"));
+                mhs.setNim(rs.getString("nim")); 
+                mhs.setNama(rs.getString("nama"));
+                mhs.setJk(rs.getString("jk"));
+                mhs.setAlamat(rs.getString("alamat"));
+                lstMhs.add(mhs);
+            }
+        } catch(SQLException e) {
+            System.out.println("Error saat getAll: " + e.getMessage());
+        }
+        return lstMhs;
     }
 }

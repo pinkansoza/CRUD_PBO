@@ -29,8 +29,6 @@ public class FormMahasiswa extends javax.swing.JFrame {
         initComponents();
         ctsMhs = new ControllerMahasiswa(this);
         ctsMhs.isiTable();
-        
-        
     }
 
     /**
@@ -62,7 +60,7 @@ public class FormMahasiswa extends javax.swing.JFrame {
         buttonDelete = new javax.swing.JButton();
         buttonReset = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtCariNama = new javax.swing.JTextField();
         buttonCariNama = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,6 +119,7 @@ public class FormMahasiswa extends javax.swing.JFrame {
         jLabel2.setText("Cari Nama");
 
         buttonCariNama.setText("Cari");
+        buttonCariNama.addActionListener(this::buttonCariNamaActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -163,7 +162,7 @@ public class FormMahasiswa extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCariNama, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCariNama, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44))))
@@ -176,7 +175,7 @@ public class FormMahasiswa extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCariNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonCariNama))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -270,6 +269,11 @@ public class FormMahasiswa extends javax.swing.JFrame {
         ctsMhs.isiTable();
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
+    private void buttonCariNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCariNamaActionPerformed
+        // TODO add your handling code here:
+        ctsMhs.cari();
+    }//GEN-LAST:event_buttonCariNamaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -317,10 +321,10 @@ public class FormMahasiswa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JComboBox<String> setJK;
     private javax.swing.JTable tabelData;
     private javax.swing.JTextArea txtAlamat;
+    private javax.swing.JTextField txtCariNama;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtNim;
@@ -365,5 +369,9 @@ public class FormMahasiswa extends javax.swing.JFrame {
 
     public JButton getbuttonInsert() {
         return buttonInsert;
+    }
+    
+    public JTextField gettxtCariNama(){
+        return txtCariNama;
     }
 }

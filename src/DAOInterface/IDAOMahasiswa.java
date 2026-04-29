@@ -15,9 +15,11 @@ public interface IDAOMahasiswa {
     //READ DATA
     public List<Mahasiswa> getAll();
     //INSERT DATA
-    public void insert(Mahasiswa b);
+    public boolean insert(Mahasiswa b);
     //UPDATE DATA
     public void update(Mahasiswa b);
     //DELETE DATA
     public void delete(int id);
+    //SEARCH DATA
+    public List<Mahasiswa> getAllByName(String nama);
 }
