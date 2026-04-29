@@ -25,6 +25,7 @@ public class DAOMahasiswa implements IDAOMahasiswa {
     String strRead = "select * from tblMahasiswa;";
     String strInsert = "insert into tblMahasiswa(id,nim,nama,jk,alamat) values (?,?,?,?,?);";
     String strUpdate = "update tblMahasiswa set nim=?, nama=?, jk=?, alamat=? where id=? ";
+    String strDelete = "delete from tblMahasiswa where id=?";
     
 
     public DAOMahasiswa() throws SQLException {
@@ -115,5 +116,27 @@ public class DAOMahasiswa implements IDAOMahasiswa {
             }
         }
     }
+    }
+
+    @Override
+    public void delete(int id) {
+        PreparedStatement statement = null;
+    try {
+        statement = con.prepareStatement(strDelete, java.sql.Statement.RETURN_GENERATED_KEYS);
+        statement.setInt(1, id);
+        statement.executeUpdate();
+       
+    } catch (SQLException ex) {
+        System.out.println("Berhasil Delete");
+    } finally {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                System.out.println("Gagal Delete: " + e.getMessage());
+            }
+        }
+    }
+    
     }
 }

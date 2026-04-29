@@ -6,6 +6,7 @@ package View;
 
 import Controller.ControllerMahasiswa;
 import java.sql.SQLException;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -112,6 +113,7 @@ public class FormMahasiswa extends javax.swing.JFrame {
         buttonUpdate.addActionListener(this::buttonUpdateActionPerformed);
 
         buttonDelete.setText("Hapus");
+        buttonDelete.addActionListener(this::buttonDeleteActionPerformed);
 
         buttonReset.setText("Reset");
         buttonReset.addActionListener(this::buttonResetActionPerformed);
@@ -244,7 +246,6 @@ public class FormMahasiswa extends javax.swing.JFrame {
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
         ctsMhs.insert();
         ctsMhs.isiTable();
-        ctsMhs.reset();
     }//GEN-LAST:event_buttonInsertActionPerformed
 
     private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
@@ -261,8 +262,13 @@ public class FormMahasiswa extends javax.swing.JFrame {
         // TODO add your handling code here:
         ctsMhs.update();
         ctsMhs.isiTable();
-        ctsMhs.reset();
     }//GEN-LAST:event_buttonUpdateActionPerformed
+
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        // TODO add your handling code here:
+        ctsMhs.delete();
+        ctsMhs.isiTable();
+    }//GEN-LAST:event_buttonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,4 +351,19 @@ public class FormMahasiswa extends javax.swing.JFrame {
         return txtAlamat;
     }
 
+    public JButton getbuttonUpdate() {
+        return buttonUpdate;
+    }
+    
+    public JButton getbuttonDelete() {
+        return buttonDelete;
+    }
+    
+    public JButton getbuttonReset() {
+        return buttonReset;
+    }
+
+    public JButton getbuttonInsert() {
+        return buttonInsert;
+    }
 }

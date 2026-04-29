@@ -18,4 +18,6 @@ public interface IDAOMahasiswa {
     public void insert(Mahasiswa b);
     //UPDATE DATA
     public void update(Mahasiswa b);
+    //DELETE DATA
+    public void delete(int id);
 }
